@@ -1,0 +1,90 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<style>
+    body{
+        background-image: url("{% static 'images/abstract-antique-backdrop-background-129731.jpg' %}");
+    }
+</style>
+    <title>Albums</title>
+  </head>
+  <body>
+    {% include 'head.html' %}
+
+    <table align="center" border="0">
+        <tr>
+            <td colspan="3" width="1200">
+                <h3 style="text-align: center;font-family: Roboto;color: grey"> Top Albums</h3>
+            </td>
+        </tr>
+
+
+             {% for x in object_list %}
+                   <tr align="center">
+         <td>
+                <br><a href="{% url 'one_album' %}?m={{ x.name }}">
+
+                <div class="card" style="width: 20rem;">
+  <div class="card-body" >
+    <table align="center" border="0" width="300">
+        <tr>
+            <td>
+                <img src="{{ x.album_image.url }}" width="280" height="300">
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: center;color: grey;font-family: Roboto">
+                {{ x.name }}
+            </td>
+        </tr>
+    </table>
+  </div>
+</div>
+                    </a><br>
+                    </td>
+                 </tr>
+
+                {% endfor %}
+
+
+    <tr align="center">
+            {% if is_paginated %}
+            <td>
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}">
+                Previous
+                </a>
+                {% endif %}
+            {% for x in paginator.page_range %}
+                {% if page_obj.number == x %}
+                    {{ x }}
+                    {% else %}
+                    <a href="?page={{ x }}">{{ x }}</a>
+                {% endif %}
+            {% endfor %}
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">
+                  Next
+                </a>
+                {% endif %}
+            </td>
+        {% endif %}
+    </tr>
+    </table>
+
+    {% include 'footer.html' %}
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>

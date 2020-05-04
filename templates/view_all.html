@@ -1,0 +1,78 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <title>All Songs</title>
+<style>
+    body{
+        background-image: url("{% static 'images/abstract-antique-backdrop-background-129731.jpg' %}");
+    }
+</style>
+  </head>
+  <body>
+    {% include 'head.html' %}<br><br>
+
+    <table align="center" border="0">
+        <tr align="center">
+            <th width="100" height="40" style="font-family: Roboto;color: grey">
+                ID
+            </th>
+            <th width="400" colspan="2" style="font-family: Roboto;color: grey">
+                Tittle
+            </th>
+            <td width="300" style="font-family: Roboto;color: grey">
+                Album
+            </td>
+            <th width="300" style="font-family: Roboto;color: grey">
+                Artist
+            </th>
+        </tr>
+        {% for x in all %}
+        <tr align="center">
+            <td height="100" style="font-family: Roboto">
+                {{ x.songid }}
+            </td>
+            <td style="font-family: Roboto" width="150">
+                <a href="{% url 'one_song' %}?s={{ x.songid }}">
+                    <img src="{{ x.song_image.url }}" width="40" height="60">
+                </a>
+            </td>
+            <td style="text-align: left">
+                <a href="{% url 'one_song' %}?s={{ x.songid }}">
+                    {{ x.tittle }}
+                </a>
+            </td>
+            <td style="font-family: Roboto">
+                <a href="{% url 'one_album' %}?m={{ x.album_name_id }}">
+                {{ x.album_name_id }}
+                </a>
+            </td>
+            <td style="font-family: Roboto">
+                <a href="{% url 'one_artist' %}?a={{ x.artist }}">
+                {{ x.artist }}
+                </a>
+            </td>
+        <td>
+            <audio src="{{ x.song.url }}" controls></audio>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+
+    {% include 'footer.html' %}
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>
